@@ -87,7 +87,7 @@ var images1 = {
         textArea.textContent += "a";
       }
       else if (e.keyCode == 32){
-        textArea.textContent += " ";S
+        textArea.textContent += " ";
       }
       //else if(letters[e.keyCode + 1] === undefined)
       //{}
