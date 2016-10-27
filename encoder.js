@@ -1,4 +1,5 @@
 var textArea = document.getElementById('textArea')  ;
+var translation = document.getElementById('translationArea');
 var letters = {
   65:"a",
   66:"b",
@@ -108,6 +109,7 @@ var images2 = {
    }
     //document.getElementById("textArea").innerHTML +=  example;
     else if($("input:checked").val() == "hieroglyphics"){
+      //just puts an image instead of a key code in
       textArea.innerHTML += images1[e.keyCode];
 
     }
@@ -117,16 +119,18 @@ var images2 = {
       {
         textArea.textContent += "a";
       }
+      //making it so that a space dosent cause an error
       else if (e.keyCode == 32){
         textArea.textContent += " ";
       }
       //else if(letters[e.keyCode + 1] === undefined)
       //{}
+      //makes it so that backsapce delets most recent added element
       else if (e.keyCode  == 8)
       {
         textArea.textContent = textArea.textContent.substr(0, textArea.textContent.length - 1);
       }
-
+      // makes it so that the key code is increased by 1 such as typing a will give b
       else {
         textArea.textContent += letters[e.keyCode + 1];
       }
@@ -138,7 +142,7 @@ var images2 = {
     else if($("input:checked").val() == "echo") {
       console.log("echo")
 
-
+      //just repets what ever you type in
       textArea.textContent += letters[e.keyCode];
     }
   });
@@ -146,3 +150,39 @@ $('input[type="radio"]').click(function(){
    $('input:checked').prop('checked',false);
    $(this).prop('checked',true);
 });
+
+  document.getElementById('translationInputArea').addEventListener("keydown", function(e){
+    if($("input:checked").val()  == "caesarCipher") {
+
+      if (e.keyCode == 13) {
+        var texts = document.getElementById("translationInputText").value;
+        texts = texts.split("");
+        for (var i = 0; i < texts.length; i++) {
+          var translations = texts[i].charCodeAt(0) - 33;
+          if (translations == 65){
+            translation.textContent += "z";
+          }
+          else {
+            translation.innerHTML += letters[translations];
+          }
+        }
+      }
+      else if (e.keyCode == 8) {
+          translation.textContent = translation.textContent.substr(0, textArea.textContent.length - 1);
+      }
+      else if (e.keyCode == 32) {
+        translation.innerHTML += " ";
+      }
+      else if (e.keyCode == 65) {
+          translation.innerHTML += "z ";
+      }
+      else {
+          translation.innerHTML += letters[e.keyCode - 1];
+      }
+    }
+    });
+
+  $('input[type="radio"]').click(function(){
+     $('input:checked').prop('checked',false);
+     $(this).prop('checked',true);
+  });
